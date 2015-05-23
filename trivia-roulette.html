@@ -1,0 +1,61 @@
+<head>
+  <title>Trivia Roulette</title>
+</head>
+
+<body>
+  <div class="container">
+    <center>
+    <header>
+      <h1>Trivia Roulette</h1>
+    </header>
+
+    <table>
+    <tr>
+      {{#each squares}}
+        <td>
+          {{#if isGray}}
+            <div id="graysquare">
+               {{getId}}
+            </div> 
+          {{/if}}
+          {{#if isBlack}}
+             <div id="blacksquare">
+               {{getId}}
+             </div> 
+          {{/if}}
+          {{#if isRed}}
+             <div id="redsquare">
+               {{getId}}
+             </div> 
+          {{/if}}
+        </td>
+      {{/each}}
+    </tr>
+    </table>
+    {{> duel }}
+    </center>
+  </div>
+</body>
+
+<template name="duel">
+  <p>
+  Current turn:
+  </p>
+  {{#if isCurrentTurnBlack}}
+    <div id="blacksquare"></div>
+  {{else}}
+    <div id="redsquare"></div>
+  {{/if}}
+  <form class="head-to-head">
+    <p>
+     <table>
+      <tr>
+       <td><div id="blacksquare"></div></td>
+       <td><div id="redsquare"></div></td>
+      </tr> 
+     </table>
+    </p>
+    <button class="correct">Yes</button>
+    <button class="incorrect">No</button>
+  </form>
+</template>
