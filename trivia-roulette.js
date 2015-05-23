@@ -75,6 +75,15 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.duel.events({
+    "click .reset": function () {
+       a = Squares.find({});
+       a.forEach(function(e) {
+          Squares.update(e._id, {$set: {color: "gray"}});
+       });
+     }
+  });
+
 }
 
 if (Meteor.isServer) {
