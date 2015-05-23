@@ -44,6 +44,18 @@ if (Meteor.isClient) {
      }
   });
 
+  Template.duel.helpers({
+    blacktotal: function() {
+      return Squares.find({color: "black"}).count();  
+    }
+  });
+
+  Template.duel.helpers({
+    redtotal: function() {
+      return Squares.find({color: "red"}).count();
+    }
+  });
+
   Template.duel.events({
     "click .correct": function () {
        t = Turn.find({}).fetch({})[0];
