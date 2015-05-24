@@ -122,6 +122,8 @@ if (Meteor.isClient) {
 
   Template.duel.events({
     "click .reset": function () {
+       r = RevealAnswer.find({}).fetch({})[0];
+       RevealAnswer.update(r._id, {$set: {state: false}});
        a = Squares.find({});
        a.forEach(function(e) {
           Squares.update(e._id, {$set: {color: "gray"}});
