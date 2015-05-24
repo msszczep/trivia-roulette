@@ -46,6 +46,12 @@ if (Meteor.isClient) {
   });
 
   Template.duel.helpers({
+    isGameNotYetOver: function() {
+      return Squares.find({color: "gray"}).count() > 0;
+    }
+  });
+
+  Template.duel.helpers({
     blacktotal: function() {
       return Squares.find({color: "black"}).count();  
     }
