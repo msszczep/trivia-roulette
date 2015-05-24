@@ -39,13 +39,30 @@
 
 <template name="duel">
   <p>
-  Current turn:
-  </p>
   {{#if isCurrentTurnBlack}}
-    <div id="blacksquare"></div>
+    <div id="blackrectangle">
+     {{getQuestion}}
+    </div>
+    <p>
+    <div id="blackrectangle">
+     {{#if showAnswer}}
+       {{getAnswer}}
+     {{/if}}
+    </div>
+    </p>
   {{else}}
-    <div id="redsquare"></div>
+    <div id="redrectangle">
+     {{getQuestion}}
+    </div>
+    <p>
+    <div id="redrectangle">
+     {{#if showAnswer}}
+       {{getAnswer}}
+     {{/if}}
+    </div>
+    </p>
   {{/if}}
+  </p>
   <form class="head-to-head">
     <p>
      <table>
@@ -55,8 +72,13 @@
       </tr> 
      </table>
     </p>
-    <button class="correct">Yes</button>
-    <button class="incorrect">No</button>
+    <p>
+    <button class="showanswer">Show Answer</button>
+    </p>
+     {{#if showAnswer}}
+       <button class="correct">Yes</button>
+       <button class="incorrect">No</button>
+     {{/if}}
     <p>
     <button class="reset">Reset game</button>
     </p>

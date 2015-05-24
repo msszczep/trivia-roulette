@@ -1,6 +1,7 @@
 Squares = new Mongo.Collection("squares");
 Turn = new Mongo.Collection("turn");
-//Questions = new Mongo.Collection("questions");
+Questions = new Mongo.Collection("questions");
+RevealAnswer = new Mongo.Collection("revealanswer");
 
 if (Meteor.isClient) {
   Template.body.helpers({
@@ -56,17 +57,55 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.duel.events({
-    "click .correct": function () {
-       t = Turn.find({}).fetch({})[0];
-       s = Squares.findOne({color: "gray"}, {sort: {id: 1}});
-       Squares.update(s._id, {$set: {color: t.color}});
+  Template.duel.helpers({
+    getQuestion: function() {
+      return Questions.findOne({used: 0}, {sort: {id: 1}}).question; 
+    }
+  });
+
+  Template.duel.helpers({
+    getAnswer: function() {
+      return Questions.findOne({used: 0}, {sort: {id: 1}}).answer; 
     }
   });
 
   Template.duel.events({
-    "click": function () {
+    "click .showanswer": function () {
+       r = RevealAnswer.findOne({});
+       RevealAnswer.update(r._id, {$set: {state: true}});
+    }
+  });
+
+  Template.duel.helpers({
+    showAnswer: function() {
+       return RevealAnswer.findOne({}).state;
+    }
+  });
+
+  Template.duel.events({
+    "click .correct": function () {
        t = Turn.find({}).fetch({})[0];
+       s = Squares.findOne({color: "gray"}, {sort: {id: 1}});
+       q = Questions.findOne({used: 0}, {sort: {id: 1}}); 
+       r = RevealAnswer.find({}).fetch({})[0];
+       Squares.update(s._id, {$set: {color: t.color}});
+       Questions.update(q._id, {$set: {used: 1}});
+       RevealAnswer.update(r._id, {$set: {state: false}});
+       if (t.color == "black") {
+           Turn.update(t._id, {$set: {color: "red"}});
+       } else {
+           Turn.update(t._id, {$set: {color: "black"}});
+       }
+    }
+  });
+
+  Template.duel.events({
+    "click .incorrect": function () {
+       t = Turn.find({}).fetch({})[0];
+       q = Questions.findOne({used: 0}, {sort: {id: 1}}); 
+       r = RevealAnswer.find({}).fetch({})[0];
+       Questions.update(q._id, {$set: {used: 1}});
+       RevealAnswer.update(r._id, {$set: {state: false}});
        if (t.color == "black") {
            Turn.update(t._id, {$set: {color: "red"}});
        } else {
@@ -103,6 +142,9 @@ if (Meteor.isServer) {
       } else {
         Turn.insert({color: "red"});
       }
+    }
+    if (RevealAnswer.find().count() === 0) {
+      RevealAnswer.insert({state: false});
     }
   });
 }

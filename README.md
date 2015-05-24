@@ -2,6 +2,5 @@
 Meteor app to play America's favorite new trivia game
 
 TODO:
-Database of questions / answers
-Reset button
+Put in endgame code
 Spin the wheel! 
