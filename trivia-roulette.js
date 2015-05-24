@@ -7,71 +7,47 @@ if (Meteor.isClient) {
   Template.body.helpers({
     squares: function() {
       return Squares.find({});
-    }
-  });
-
-  Template.body.helpers({
+    },
     isGray: function() {
       return this.color == "gray";
-    }
-  });
-
-  Template.body.helpers({
+    },
     isBlack: function() {
       return this.color == "black";
-    }
-  });
-
-  Template.body.helpers({
+    },
     isRed: function() {
       return this.color == "red";
-    }
-  });
-
-  Template.body.helpers({
+    },
     getId: function() {
       return this.id;
     }
   });
 
   Template.duel.helpers({
-     isCurrentTurnBlack: function() {
-       t = Turn.find({});
-       if (t.fetch({})[0].color == "black") {
-            return true;
-       } else {
-            return false;
-       }
-     }
-  });
-
-  Template.duel.helpers({
+    isCurrentTurnBlack: function() {
+      t = Turn.find({});
+      if (t.fetch({})[0].color == "black") {
+        return true;
+      } else {
+        return false;
+      }
+    },
     isGameNotYetOver: function() {
       return Squares.find({color: "gray"}).count() > 0;
-    }
-  });
-
-  Template.duel.helpers({
+    },
     blacktotal: function() {
       return Squares.find({color: "black"}).count();  
-    }
-  });
-
-  Template.duel.helpers({
+    },
     redtotal: function() {
       return Squares.find({color: "red"}).count();
-    }
-  });
-
-  Template.duel.helpers({
+    },
     getQuestion: function() {
       return Questions.findOne({used: 0}, {sort: {id: 1}}).question; 
-    }
-  });
-
-  Template.duel.helpers({
+    },
     getAnswer: function() {
       return Questions.findOne({used: 0}, {sort: {id: 1}}).answer; 
+    },
+    showAnswer: function() {
+      return RevealAnswer.findOne({}).state;
     }
   });
 
@@ -79,16 +55,7 @@ if (Meteor.isClient) {
     "click .showanswer": function () {
        r = RevealAnswer.findOne({});
        RevealAnswer.update(r._id, {$set: {state: true}});
-    }
-  });
-
-  Template.duel.helpers({
-    showAnswer: function() {
-       return RevealAnswer.findOne({}).state;
-    }
-  });
-
-  Template.duel.events({
+    },
     "click .correct": function () {
        t = Turn.find({}).fetch({})[0];
        s = Squares.findOne({color: "gray"}, {sort: {id: 1}});
@@ -102,10 +69,7 @@ if (Meteor.isClient) {
        } else {
            Turn.update(t._id, {$set: {color: "black"}});
        }
-    }
-  });
-
-  Template.duel.events({
+    },
     "click .incorrect": function () {
        t = Turn.find({}).fetch({})[0];
        q = Questions.findOne({used: 0}, {sort: {id: 1}}); 
@@ -117,10 +81,7 @@ if (Meteor.isClient) {
        } else {
            Turn.update(t._id, {$set: {color: "black"}});
        }
-    }
-  });
-
-  Template.duel.events({
+    },
     "click .reset": function () {
        r = RevealAnswer.find({}).fetch({})[0];
        RevealAnswer.update(r._id, {$set: {state: false}});
@@ -130,7 +91,6 @@ if (Meteor.isClient) {
        });
      }
   });
-
 }
 
 if (Meteor.isServer) {
