@@ -62,3 +62,21 @@
   font-size: 20px;
 }
 
+button {
+  background: #BFBFD4;
+  background: -moz-linear-gradient(top,#BFBFD4 0%,#188BC0 100%);
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#BFBFD4),color-stop(100%,#BFBFD4));
+  background: -webkit-linear-gradient(top,#BFBFD4 0%,#188BC0 100%);
+  background: -o-linear-gradient(top,#BFBFD4 0%,#188BC0 100%);
+  background: -ms-linear-gradient(top,#BFBFD4 0%,#188BC0 100%);
+  background: linear-gradient(top,#BFBFD4 0%,#188BC0 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#BFBFD4',endColorstr='#BFBFD4',GradientType=0);
+  padding:8px 13px;
+  color:#fff;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:17px;
+  border-radius:4px;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  border:1px solid #1A87B9
+}           

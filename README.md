@@ -2,4 +2,5 @@
 Meteor app to play America's favorite new trivia game
 
 TODO:
-Spin the wheel! 
+Automatically load Q db
+"Spin the wheel"! 
