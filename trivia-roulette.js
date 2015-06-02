@@ -104,6 +104,13 @@ if (Meteor.isServer) {
         });
       });
     }
+    if (Questions.find().count() === 0) {
+      var qs = JSON.parse(Assets.getText('questions.json'));
+      _.each(qs, function(thisQ) {
+        Questions.insert(thisQ);
+        console.log(thisQ);
+      });
+    }
     if (Turn.find().count() === 0) {
       if (Math.floor(Math.random() * 2) === 0) {
         Turn.insert({color: "black"});
