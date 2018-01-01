@@ -63,6 +63,14 @@
       </div>
       </p>
     {{/if}}
+  {{else}}
+    {{#each finalSquareLoop}}
+      {{#if showFinalSquareColorIsRed}}
+        <div id="redsquare">{{showFinalSquareId}}</div>
+      {{else}}
+        <div id="blacksquare">{{showFinalSquareId}}</div>
+      {{/if}}
+    {{/each}}
   {{/if}}
   </p>
   <form class="head-to-head">

@@ -1,0 +1,2 @@
+db.questions.update({used: 1}, {$set: {used: 0}}, {multi: true});
+db.questions.remove({});

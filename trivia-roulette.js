@@ -2,6 +2,7 @@ Squares = new Mongo.Collection("squares");
 Turn = new Mongo.Collection("turn");
 Questions = new Mongo.Collection("questions");
 RevealAnswer = new Mongo.Collection("revealanswer");
+var changingSquare = 0;
 
 if (Meteor.isClient) {
   Template.body.helpers({
@@ -48,6 +49,19 @@ if (Meteor.isClient) {
     },
     showAnswer: function() {
       return RevealAnswer.findOne({}).state;
+    },
+    showFinalSquareId: function() {
+      return this.id; 
+    },
+    showFinalSquareColorIsRed: function() { 
+      return this.color == "red";
+    },
+    finalSquareLoop: function() {
+      s = Squares.find({});
+      changingSquare = setInterval( function() { 
+        n = Math.floor(Math.random() * 12);
+        return s[n]; 
+      }, 1000);
     }
   });
 
